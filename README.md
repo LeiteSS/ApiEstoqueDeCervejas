@@ -12,7 +12,7 @@
 
   - Selecionar: ***Maven Project***, **Java**; e adicionar as dependencias **Lombok**, **Spring Web**, **Spring Data JPA**, **Validation**, **H2 Database**, porém ainda irá faltar as dependência: **mapstruct**, **springfox swagger2**, **springfox swagger ui**.  
 
-  ![](/img/Screenshot from 2021-03-16 13-47-07.png)
+  ![](./img/Screenshot from 2021-03-16 13-47-07.png)
   - Adicionar manualmente as dependências restantes no documento **pom.xml**.
 
   ```xml
