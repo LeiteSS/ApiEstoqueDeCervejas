@@ -269,6 +269,6 @@ Mas use o **Mockito** de forma responsavel, pois como foi dito anteriormente é 
 Aqui no final era para estar o codigo completo da aplicação para ser replicado usando as etapas, porém o diario de bordo está escrito de forma coesa, sendo possivel, ser feito esse **Gerenciador de Estoque de Cervejas** em outras linguagens.
 
 - Commitar e entregar projeto. 
-- Sobre os erros encontrados ao rodar o projeto com `mvn spring-boot:run`. Foi resolvido escrevendo os metodos `procurarPeloNome()`, `exclusaoPeloId()`, etc em inglês, pois parece que estava dando conflito entre os metodos escritos aqui em portugues com os escritos em Inglês pela a classe `JpaRepository`.
+- Sobre os erros encontrados ao rodar o projeto com `mvn spring-boot:run`. Foi resolvido escrevendo os metodos `procurarPeloNome()`, `exclusaoPeloId()`, etc em inglês, pois parece que estava dando conflito entre os metodos escritos aqui em portugues com os escritos em Inglês pela a classe `JpaRepository`. Pois bem, fique como lição, escrever os projetos e codigos em inglês apartir de hoje, pois como o instrutor mesmo disse, além de ser uma prática adotada por algumas empresas, ajuda no aprendizado da linguagem em Inglês.
 
 **P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
