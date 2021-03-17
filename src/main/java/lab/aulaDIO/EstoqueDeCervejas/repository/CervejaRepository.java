@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface CervejaRepository extends JpaRepository<Cerveja, Long> {
 
-    Optional<Cerveja> procurarPeloNome(String nome);
+    Optional<Cerveja> findByName(String name);
 
 }

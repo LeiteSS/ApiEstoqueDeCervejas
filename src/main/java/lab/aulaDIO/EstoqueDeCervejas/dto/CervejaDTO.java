@@ -21,11 +21,11 @@ public class CervejaDTO {
 
     @NotNull
     @Size(min = 1, max = 200)
-    private String nome;
+    private String name;
 
     @NotNull
     @Size(min = 1, max = 200)
-    private String marca;
+    private String brand;
 
     @NotNull
     @Max(50)
@@ -33,10 +33,10 @@ public class CervejaDTO {
 
     @NotNull
     @Max(100)
-    private Integer quantidade;
+    private Integer quantity;
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    private TipoDaCerveja tipo;
+    private TipoDaCerveja type;
 
 }

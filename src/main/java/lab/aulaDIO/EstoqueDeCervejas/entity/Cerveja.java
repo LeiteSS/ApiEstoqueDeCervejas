@@ -17,18 +17,18 @@ public class Cerveja {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String nome;
+    private String name;
 
     @Column(nullable = false)
-    private String marca;
+    private String brand;
 
     @Column(nullable = false)
     private int max;
 
     @Column(nullable = false)
-    private int quantidade;
+    private int quantity;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoDaCerveja tipo;
+    private TipoDaCerveja type;
 }

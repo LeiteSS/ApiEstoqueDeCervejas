@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/cervejas")
+@RequestMapping("/api/v1/beers")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CervejaController implements CervejaControllerDocs {
     private final CervejaService cervejaService;
@@ -23,38 +23,33 @@ public class CervejaController implements CervejaControllerDocs {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CervejaDTO registrarCerveja(@RequestBody @Valid CervejaDTO cervejaDTO) throws JaExisteException {
-        return cervejaService.registrarCerveja(cervejaDTO);
+    public CervejaDTO create(@RequestBody @Valid CervejaDTO cervejaDTO) throws JaExisteException {
+        return cervejaService.create(cervejaDTO);
     }
 
     @Override
     @GetMapping("/{name}")
-    public CervejaDTO procurarPeloNome(@PathVariable String nome) throws NaoFoiEncontradoException {
-        return cervejaService.procurarPeloNome(nome);
+    public CervejaDTO findByName(@PathVariable String name) throws NaoFoiEncontradoException {
+        return cervejaService.findByName(name);
     }
 
     @Override
     @GetMapping
-    public List<CervejaDTO> listarCerveja() {
-        return cervejaService.listarCervejas();
-    }
+    public List<CervejaDTO> listAll() { return cervejaService.listAll(); }
 
     @Override
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void exclusaoPeloId(Long id) throws NaoFoiEncontradoException {
-        cervejaService.exclusaoPeloId(id);
-    }
+    public void deleteById(Long id) throws NaoFoiEncontradoException { cervejaService.deleteById(id); }
 
     @Override
-    @PatchMapping("/{id}/incremento")
-    public CervejaDTO incrementoDoEstoque(Long id, @Valid QuantidadeDTO quantidadeDTO) throws NaoFoiEncontradoException, EstoqueExcedeuException {
-        return cervejaService.incrementoDoEstoque(id, quantidadeDTO.getQuantidade());
+    @PatchMapping("/{id}/increment")
+    public CervejaDTO increment(Long id, @Valid QuantidadeDTO quantidadeDTO) throws NaoFoiEncontradoException, EstoqueExcedeuException {
+        return cervejaService.increment(id, quantidadeDTO.getQuantity());
     }
-
-    @PatchMapping("/{id}/decremento")
+    @PatchMapping("/{id}/decrement")
     public CervejaDTO decrementoDoEstoque(@PathVariable Long id, @RequestBody @Valid QuantidadeDTO quantidadeDTO) throws NaoFoiEncontradoException, EstoqueExcedeuException {
-        return cervejaService.decrementaNoEstoque(id, quantidadeDTO.getQuantidade());
+        return cervejaService.decrement(id, quantidadeDTO.getQuantity());
     }
 
 }

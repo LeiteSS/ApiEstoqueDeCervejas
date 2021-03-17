@@ -21,47 +21,47 @@ public class CervejaService {
     private final CervejaRepository cervejaRepository;
     private final CervejaMapper cervejaMapper = CervejaMapper.INSTANCE;
 
-    public CervejaDTO registrarCerveja(CervejaDTO cervejaDTO) throws JaExisteException {
-        verificaSeEstaRegistrado(cervejaDTO.getNome());
+    public CervejaDTO create(CervejaDTO cervejaDTO) throws JaExisteException {
+        verificaSeEstaRegistrado(cervejaDTO.getName());
         Cerveja cerveja = cervejaMapper.toModel(cervejaDTO);
         Cerveja cervejaSalva = cervejaRepository.save(cerveja);
         return cervejaMapper.toDTO(cervejaSalva);
     }
 
-    public CervejaDTO procurarPeloNome(String name) throws NaoFoiEncontradoException {
-        Cerveja cervejaEncontrada = cervejaRepository.procurarPeloNome(name)
+    public CervejaDTO findByName(String name) throws NaoFoiEncontradoException {
+        Cerveja cervejaEncontrada = cervejaRepository.findByName(name)
                 .orElseThrow(() -> new NaoFoiEncontradoException(name));
         return cervejaMapper.toDTO(cervejaEncontrada);
     }
 
-    public List<CervejaDTO> listarCervejas() {
+    public List<CervejaDTO> listAll() {
         return cervejaRepository.findAll()
                 .stream()
                 .map(cervejaMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
-    public void exclusaoPeloId(Long id) throws NaoFoiEncontradoException {
+    public void deleteById(Long id) throws NaoFoiEncontradoException {
         verificaSeExiste(id);
         cervejaRepository.deleteById(id);
     }
 
-    public CervejaDTO incrementoDoEstoque(Long id, int quantidadeParaIncrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
+    public CervejaDTO increment(Long id, int quantidadeParaIncrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
         Cerveja cervejaParaIncrementar = verificaSeExiste(id);
-        int cervejaAposIncremento = quantidadeParaIncrementar + cervejaParaIncrementar.getQuantidade();
+        int cervejaAposIncremento = quantidadeParaIncrementar + cervejaParaIncrementar.getQuantity();
         if (cervejaAposIncremento <= cervejaParaIncrementar.getMax()) {
-            cervejaParaIncrementar.setQuantidade(cervejaAposIncremento);
+            cervejaParaIncrementar.setQuantity(cervejaAposIncremento);
             Cerveja cervejaIncrementada = cervejaRepository.save(cervejaParaIncrementar);
             return cervejaMapper.toDTO(cervejaIncrementada);
         }
         throw new EstoqueExcedeuException(id, quantidadeParaIncrementar);
     }
 
-    public CervejaDTO decrementaNoEstoque(Long id, int quantidadeParaDecrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
+    public CervejaDTO decrement(Long id, int quantidadeParaDecrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
         Cerveja cervejaParaDecrementar = verificaSeExiste(id);
-        int cervejaAposDecremento = cervejaParaDecrementar.getQuantidade() - quantidadeParaDecrementar;
+        int cervejaAposDecremento = cervejaParaDecrementar.getQuantity() - quantidadeParaDecrementar;
         if (cervejaAposDecremento >= 0) {
-            cervejaParaDecrementar.setQuantidade(cervejaAposDecremento);
+            cervejaParaDecrementar.setQuantity(cervejaAposDecremento);
             Cerveja cervejaDecrementada = cervejaRepository.save(cervejaParaDecrementar);
             return cervejaMapper.toDTO(cervejaDecrementada);
         }
@@ -69,7 +69,7 @@ public class CervejaService {
     }
 
     private void verificaSeEstaRegistrado(String name) throws JaExisteException {
-        Optional<Cerveja> optSavedBeer = cervejaRepository.procurarPeloNome(name);
+        Optional<Cerveja> optSavedBeer = cervejaRepository.findByName(name);
         if (optSavedBeer.isPresent()) {
             throw new JaExisteException(name);
         }

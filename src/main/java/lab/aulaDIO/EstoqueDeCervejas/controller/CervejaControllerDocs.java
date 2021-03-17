@@ -24,27 +24,27 @@ public interface CervejaControllerDocs {
             @ApiResponse(code = 201, message = "Cerveja registrada com sucesso."),
             @ApiResponse(code = 400, message = "Campos Obrigatorios em branco ou valores fora do escopo")
     })
-    CervejaDTO registrarCerveja(CervejaDTO cervejaDTO) throws JaExisteException;
+    CervejaDTO create(CervejaDTO cervejaDTO) throws JaExisteException;
 
     @ApiOperation(value = "Retorna a cerveja encontrada usando o nome.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Sucesso ao encontrar a cerveja no sistema."),
             @ApiResponse(code = 404, message = "Cerveja não encontrada.")
     })
-    CervejaDTO procurarPeloNome(@PathVariable String nome) throws NaoFoiEncontradoException;
+    CervejaDTO findByName(@PathVariable String name) throws NaoFoiEncontradoException;
 
     @ApiOperation(value = "Retorna uma lista com todas as cervejas no sistema.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "List of all beers registered in the system"),
     })
-    List<CervejaDTO> listarCerveja();
+    List<CervejaDTO> listAll();
 
     @ApiOperation(value = "Deleta a cerveja usando o id dado.")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Sucesso na exclusão da cerveja do sistema."),
             @ApiResponse(code = 404, message = "Cerveja com o id dado não foi encontrada.")
     })
-    void exclusaoPeloId(@PathVariable Long id) throws NaoFoiEncontradoException;
+    void deleteById(@PathVariable Long id) throws NaoFoiEncontradoException;
 
     @ApiOperation(value = "Incrementar uma cerveja usando o Id passado.")
     @ApiResponses(value = {
@@ -52,6 +52,6 @@ public interface CervejaControllerDocs {
             @ApiResponse(code = 400, message = "Falha ao incrementar a cerveja no estoque."),
             @ApiResponse(code = 404, message = "Não foi encontrado cerveja com esse id.")
     })
-    CervejaDTO incrementoDoEstoque(@PathVariable Long id, @RequestBody @Valid QuantidadeDTO quantidadeDTO) throws NaoFoiEncontradoException, EstoqueExcedeuException;
+    CervejaDTO increment(@PathVariable Long id, @RequestBody @Valid QuantidadeDTO quantidadeDTO) throws NaoFoiEncontradoException, EstoqueExcedeuException;
 
 }

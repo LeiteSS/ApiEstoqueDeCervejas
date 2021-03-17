@@ -3,6 +3,7 @@ package lab.aulaDIO.EstoqueDeCervejas.controller;
 import lab.aulaDIO.EstoqueDeCervejas.builder.CervejaDTOBuilder;
 import lab.aulaDIO.EstoqueDeCervejas.dto.CervejaDTO;
 import lab.aulaDIO.EstoqueDeCervejas.dto.QuantidadeDTO;
+import lab.aulaDIO.EstoqueDeCervejas.dto.QuantidadeDTO;
 import lab.aulaDIO.EstoqueDeCervejas.entity.Cerveja;
 import lab.aulaDIO.EstoqueDeCervejas.exception.EstoqueExcedeuException;
 import lab.aulaDIO.EstoqueDeCervejas.exception.NaoFoiEncontradoException;
@@ -57,23 +58,24 @@ public class CervejaControllerTest {
 
     @Test
     void quandoPOSTRegistrarUmaCerveja() throws Exception {
+//        given
         CervejaDTO cervejaDTO = builder().build().toBeerDTO();
-
-        when(cervejaService.registrarCerveja(cervejaDTO)).thenReturn(cervejaDTO);
-
+//        when
+        when(cervejaService.create(cervejaDTO)).thenReturn(cervejaDTO);
+//        then
         mockMvc.perform(post(URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(cervejaDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.nome", is(cervejaDTO.getNome())))
-                .andExpect(jsonPath("$.marca", is(cervejaDTO.getMarca())))
-                .andExpect(jsonPath("$.tipo", is(cervejaDTO.getTipo().toString())));
+                .andExpect(jsonPath("$.name", is(cervejaDTO.getName())))
+                .andExpect(jsonPath("$.brand", is(cervejaDTO.getBrand())))
+                .andExpect(jsonPath("$.type", is(cervejaDTO.getType().toString())));
     }
 
     @Test
     void quandoPOSTRegistrarComUmCampoEmBranco() throws Exception {
         CervejaDTO cervejaDTO = builder().build().toBeerDTO();
-        cervejaDTO.setNome(null);
+        cervejaDTO.setName(null);
 
         mockMvc.perform(post(URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -82,47 +84,50 @@ public class CervejaControllerTest {
     }
 
     @Test
-    void quandoGETComONomeValidoRetornOKStatus() throws Exception {
+    void quandoGETComOnameValidoRetornOKStatus() throws Exception {
+//        given
         CervejaDTO cervejaDTO = builder().build().toBeerDTO();
-
-        when(cervejaService.procurarPeloNome(cervejaDTO.getNome())).thenReturn(cervejaDTO);
-
-        mockMvc.perform(get(URL_PATH + "/" + cervejaDTO.getNome())
+//        when
+        when(cervejaService.findByName(cervejaDTO.getName())).thenReturn(cervejaDTO);
+//        then
+        mockMvc.perform(get(URL_PATH + "/" + cervejaDTO.getName())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", is(cervejaDTO.getNome())))
-                .andExpect(jsonPath("$.marca", is(cervejaDTO.getMarca())))
-                .andExpect(jsonPath("$.tipo", is(cervejaDTO.getTipo().toString())));
+                .andExpect(jsonPath("$.name", is(cervejaDTO.getName())))
+                .andExpect(jsonPath("$.brand", is(cervejaDTO.getBrand())))
+                .andExpect(jsonPath("$.type", is(cervejaDTO.getType().toString())));
     }
 
     @Test
-    void quandoGETForChamadoComNomeNaoCadastrado() throws Exception {
+    void quandoGETForChamadoComnameNaoCadastrado() throws Exception {
+//        given
         CervejaDTO cervejaDTO = builder().build().toBeerDTO();
-
-        when(cervejaService.procurarPeloNome(cervejaDTO.getNome())).thenThrow(NaoFoiEncontradoException.class);
-
-        mockMvc.perform(get(URL_PATH + "/" + cervejaDTO.getNome())
+//      when
+        when(cervejaService.findByName(cervejaDTO.getName())).thenThrow(NaoFoiEncontradoException.class);
+//        then
+        mockMvc.perform(get(URL_PATH + "/" + cervejaDTO.getName())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void quandoGETForChamadoParaListar() throws Exception {
+//        given
         CervejaDTO cervejaDTO = builder().build().toBeerDTO();
-
-        when(cervejaService.listarCervejas()).thenReturn(Collections.singletonList(cervejaDTO));
-
+//      when
+        when(cervejaService.listAll()).thenReturn(Collections.singletonList(cervejaDTO));
+//        then
         mockMvc.perform(get(URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].nome", is(cervejaDTO.getNome())))
-                .andExpect(jsonPath("$[0].marca", is(cervejaDTO.getMarca())))
-                .andExpect(jsonPath("$[0].tipo", is(cervejaDTO.getTipo().toString())));
+                .andExpect(jsonPath("$[0].name", is(cervejaDTO.getName())))
+                .andExpect(jsonPath("$[0].brand", is(cervejaDTO.getBrand())))
+                .andExpect(jsonPath("$[0].type", is(cervejaDTO.getType().toString())));
     }
 
     @Test
     void quandoGETForChamadoParaListarMasEstiverVazio() throws Exception {
-        when(cervejaService.listarCervejas()).thenReturn(Collections.EMPTY_LIST);
+        when(cervejaService.listAll()).thenReturn(Collections.EMPTY_LIST);
 
         mockMvc.perform(get(URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -131,19 +136,21 @@ public class CervejaControllerTest {
 
     @Test
     void quandoOIdForValidoParaExclusao() throws Exception {
-        doNothing().when(cervejaService).exclusaoPeloId(ID_INVALIDO);
-
+//        given
+        doNothing().when(cervejaService).deleteById(ID_INVALIDO);
+//        when
         mockMvc.perform(delete(URL_PATH + "/" + ID_VALIDO)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
-
-        verify(cervejaService, times(1)).exclusaoPeloId(ID_VALIDO);
+//        then
+        verify(cervejaService, times(1)).deleteById(ID_VALIDO);
     }
 
     @Test
     void quandoOIdForInvalidoParaExclusao() throws Exception {
-        doThrow(NaoFoiEncontradoException.class).when(cervejaService).exclusaoPeloId(ID_INVALIDO);
-
+//        given && when
+        doThrow(NaoFoiEncontradoException.class).when(cervejaService).deleteById(ID_INVALIDO);
+//        then
         mockMvc.perform(delete(URL_PATH + "/" + ID_INVALIDO)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -151,36 +158,38 @@ public class CervejaControllerTest {
 
     @Test
     void quandoPATCHParaIncrementarForChamadoRetornarOKStatus() throws Exception {
+//        given
         QuantidadeDTO quantidadeDTO = QuantidadeDTO.builder()
-                .quantidade(10)
+                .quantity(10)
                 .build();
 
         CervejaDTO cervejaDTO = CervejaDTOBuilder.builder().build().toBeerDTO();
-        cervejaDTO.setQuantidade(cervejaDTO.getQuantidade() + quantidadeDTO.getQuantidade());
-
-        when(cervejaService.incrementoDoEstoque(ID_VALIDO, quantidadeDTO.getQuantidade())).thenReturn(cervejaDTO);
-
+        cervejaDTO.setQuantity(cervejaDTO.getQuantity() + quantidadeDTO.getQuantity());
+//      when
+        when(cervejaService.increment(ID_VALIDO, quantidadeDTO.getQuantity())).thenReturn(cervejaDTO);
+//        then
         mockMvc.perform(patch(URL_PATH + "/" + ID_VALIDO + SUBPATH_INCREMENTO)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(quantidadeDTO))).andExpect(status().isOk())
-                .andExpect(jsonPath("$.nome", is(cervejaDTO.getNome())))
-                .andExpect(jsonPath("$.marca", is(cervejaDTO.getMarca())))
-                .andExpect(jsonPath("$.tipo", is(cervejaDTO.getTipo().toString())))
-                .andExpect(jsonPath("$.quantidade", is(cervejaDTO.getQuantidade())));
+                .andExpect(jsonPath("$.name", is(cervejaDTO.getName())))
+                .andExpect(jsonPath("$.brand", is(cervejaDTO.getBrand())))
+                .andExpect(jsonPath("$.type", is(cervejaDTO.getType().toString())))
+                .andExpect(jsonPath("$.quantity", is(cervejaDTO.getQuantity())));
 
     }
 
     @Test
     void quandoPATCHForChamadoParaIncrementarComValorMaiorQueOMaximoPermitido() throws Exception {
+//        given
         QuantidadeDTO quantidadeDTO = QuantidadeDTO.builder()
-                .quantidade(30)
+                .quantity(30)
                 .build();
 
-        CervejaDTO beerDTO = CervejaDTOBuilder.builder().build().toBeerDTO();
-        beerDTO.setQuantidade(beerDTO.getQuantidade() + quantidadeDTO.getQuantidade());
-
-        when(cervejaService.incrementoDoEstoque(ID_VALIDO, quantidadeDTO.getQuantidade())).thenThrow(EstoqueExcedeuException.class);
-
+        CervejaDTO cervejaDTO = CervejaDTOBuilder.builder().build().toBeerDTO();
+        cervejaDTO.setQuantity(cervejaDTO.getQuantity() + quantidadeDTO.getQuantity());
+//        when
+        when(cervejaService.increment(ID_VALIDO, quantidadeDTO.getQuantity())).thenThrow(EstoqueExcedeuException.class);
+//            then
         mockMvc.perform(patch(URL_PATH + "/" + ID_VALIDO + SUBPATH_INCREMENTO)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(quantidadeDTO))).andExpect(status().isBadRequest());
@@ -188,11 +197,13 @@ public class CervejaControllerTest {
 
     @Test
     void quandoPATCHForChamadoParaIncrementarComOIDInvalido() throws Exception {
+//        given
         QuantidadeDTO quantidadeDTO = QuantidadeDTO.builder()
-                .quantidade(30)
+                .quantity(30)
                 .build();
-
-        when(cervejaService.incrementoDoEstoque(ID_INVALIDO, quantidadeDTO.getQuantidade())).thenThrow(NaoFoiEncontradoException.class);
+//         when
+        when(cervejaService.increment(ID_INVALIDO, quantidadeDTO.getQuantity())).thenThrow(NaoFoiEncontradoException.class);
+//        then
         mockMvc.perform(patch(URL_PATH + "/" + ID_INVALIDO + SUBPATH_INCREMENTO)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(quantidadeDTO)))
@@ -201,35 +212,36 @@ public class CervejaControllerTest {
 
     @Test
     void quandoPATCHForChamadoParaDecremento() throws Exception {
+//        given
         QuantidadeDTO quantidadeDTO = QuantidadeDTO.builder()
-                .quantidade(5)
+                .quantity(5)
                 .build();
 
         CervejaDTO cervejaDTO = CervejaDTOBuilder.builder().build().toBeerDTO();
-        cervejaDTO.setQuantidade(cervejaDTO.getQuantidade() + quantidadeDTO.getQuantidade());
-
-        when(cervejaService.decrementaNoEstoque(ID_VALIDO, quantidadeDTO.getQuantidade())).thenReturn(cervejaDTO);
-
+        cervejaDTO.setQuantity(cervejaDTO.getQuantity() + quantidadeDTO.getQuantity());
+//      when
+        when(cervejaService.decrement(ID_VALIDO, quantidadeDTO.getQuantity())).thenReturn(cervejaDTO);
+//      then
         mockMvc.perform(patch(URL_PATH + "/" + ID_VALIDO + SUBPATH_DECREMENTO)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(quantidadeDTO))).andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is(cervejaDTO.getNome())))
-                .andExpect(jsonPath("$.brand", is(cervejaDTO.getMarca())))
-                .andExpect(jsonPath("$.type", is(cervejaDTO.getTipo().toString())))
-                .andExpect(jsonPath("$.quantity", is(cervejaDTO.getQuantidade())));
+                .andExpect(jsonPath("$.name", is(cervejaDTO.getName())))
+                .andExpect(jsonPath("$.brand", is(cervejaDTO.getBrand())))
+                .andExpect(jsonPath("$.type", is(cervejaDTO.getType().toString())))
+                .andExpect(jsonPath("$.quantity", is(cervejaDTO.getQuantity())));
     }
 
     @Test
     void quandoPATCHForChamadoParaDecrementoMenorQueZero() throws Exception {
 //        given
         QuantidadeDTO quantidadeDTO = QuantidadeDTO.builder()
-                .quantidade(60)
+                .quantity(60)
                 .build();
 
         CervejaDTO beerDTO = CervejaDTOBuilder.builder().build().toBeerDTO();
-        beerDTO.setQuantidade(beerDTO.getQuantidade() + quantidadeDTO.getQuantidade());
+        beerDTO.setQuantity(beerDTO.getQuantity() + quantidadeDTO.getQuantity());
 //         when
-        when(cervejaService.decrementaNoEstoque(ID_VALIDO, quantidadeDTO.getQuantidade())).thenThrow(EstoqueExcedeuException.class);
+        when(cervejaService.decrement(ID_VALIDO, quantidadeDTO.getQuantity())).thenThrow(EstoqueExcedeuException.class);
 //          then
         mockMvc.perform(patch(URL_PATH + "/" + ID_VALIDO + SUBPATH_DECREMENTO)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -240,10 +252,10 @@ public class CervejaControllerTest {
     void quandoPATCHForChamadoParaDecrementarCervejaComIDInvalido() throws Exception {
         // given
         QuantidadeDTO quantidadeDTO = QuantidadeDTO.builder()
-                .quantidade(5)
+                .quantity(5)
                 .build();
         // when
-        when(cervejaService.decrementaNoEstoque(ID_INVALIDO, quantidadeDTO.getQuantidade())).thenThrow(NaoFoiEncontradoException.class);
+        when(cervejaService.decrement(ID_INVALIDO, quantidadeDTO.getQuantity())).thenThrow(NaoFoiEncontradoException.class);
         // then
         mockMvc.perform(patch(URL_PATH + "/" + ID_INVALIDO + URL_PATH)
                 .contentType(MediaType.APPLICATION_JSON)

@@ -16,5 +16,5 @@ public class QuantidadeDTO {
 
     @NotNull
     @Max(100)
-    private Integer quantidade;
+    private Integer quantity;
 }

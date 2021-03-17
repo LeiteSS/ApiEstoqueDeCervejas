@@ -11,5 +11,5 @@ public interface CervejaMapper {
 
     Cerveja toModel(CervejaDTO cervejaDTO);
 
-    CervejaDTO toDTO(Cerveja beer);
+    CervejaDTO toDTO(Cerveja cerveja);
 }

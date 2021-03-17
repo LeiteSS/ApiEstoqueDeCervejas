@@ -14,26 +14,26 @@ public class CervejaDTOBuilder {
     private Long id = 1L;
 
     @Builder.Default
-    private String nome = "Brahma";
+    private String name = "Brahma";
 
     @Builder.Default
-    private String marca = "Ambev";
+    private String brand = "Ambev";
 
     @Builder.Default
     private int max = 50;
 
     @Builder.Default
-    private int quantidade = 10;
+    private int quantity = 10;
 
     @Builder.Default
-    private TipoDaCerveja tipo = TipoDaCerveja.LAGER;
+    private TipoDaCerveja type = TipoDaCerveja.LAGER;
 
     public CervejaDTO toBeerDTO() {
         return new CervejaDTO(id,
-                nome,
-                marca,
+                name,
+                brand,
                 max,
-                quantidade,
-                tipo);
+                quantity,
+                type);
     }
 }

@@ -17,6 +17,7 @@
 =======
   ![](./img/Screenshot from 2021-03-16 13-47-07.png)
 >>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
+  
   - Adicionar manualmente as dependências restantes no documento **pom.xml**.
 
   ```xml
@@ -61,7 +62,7 @@
               </plugin>
   ```
 
-  ---
+---
 
   16 de março de 2020 - 14:19
 
@@ -144,7 +145,7 @@
 - Usando o terminal do **IntelliJ**, commitar o que fiz até agora e este **README.md** para ficar como ***backup***.
 <<<<<<< HEAD
 - Detalhar o metodo `registrarCerveja()` na documentação.
-- Buscar entender porque `mvn spring-boot:run` dá erro; tentar entender os erros.
+- Buscar entender porque `mvn spring-boot:run` dá erro; tentar entender os erros. **Solução Encontrada!**
 ---
 16 de março de 2020 - 17:00
 
@@ -271,7 +272,7 @@ Mas use o **Mockito** de forma responsavel, pois como foi dito anteriormente é 
 Aqui no final era para estar o codigo completo da aplicação para ser replicado usando as etapas, porém o diario de bordo está escrito de forma coesa, sendo possivel, ser feito esse **Gerenciador de Estoque de Cervejas** em outras linguagens.
 
 - Commitar e entregar projeto. 
+- A solução para problema ao subir o projeto para a porta **localhost:8080** é que estava escrito em português (as variaveis, métodos). Ao re-escrever em inglês funcionou, parece que estava dando conflito com a classe `JpaRepository` que está tudo em inglês. Pois bem, fica como aprendizado, pois além de algumas empresas ter adotado a pratica de desenvolver os codigos em inglês, como disse o instrutor; as linguagens de programação também.
 
-**P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
-=======
+###### **P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
 >>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
