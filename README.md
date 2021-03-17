@@ -12,7 +12,11 @@
 
   - Selecionar: ***Maven Project***, **Java**; e adicionar as dependencias **Lombok**, **Spring Web**, **Spring Data JPA**, **Validation**, **H2 Database**, porém ainda irá faltar as dependência: **mapstruct**, **springfox swagger2**, **springfox swagger ui**.  
 
+<<<<<<< HEAD
   ![](/home/silassl/Documents/workspace/EstoqueDeCervejas/img/Screenshot01.png)
+=======
+  ![](./img/Screenshot from 2021-03-16 13-47-07.png)
+>>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
   - Adicionar manualmente as dependências restantes no documento **pom.xml**.
 
   ```xml
@@ -138,6 +142,7 @@
 - Teste Realizados, somente um falhou: `quandoUmaNovaCervejaForInformadaDeveraSerCriada()`, talvez porque já deveria sido registrado a mesma cerveja na classe `CervejaControllerTest`.
 - Contudo, ao usar o comando `mvn spring-boot:run` a `build` falhou. Antes estava dando este mesmo problema (Este é o segundo projeto que estou desenvolvendo, dessa vez estou documentando um passo-a-passo), até mesmo usando o projeto do instrutor esta falhando a `build` do projeto. Contudo, pelo menos agora os teste rodam no **IDE**.  
 - Usando o terminal do **IntelliJ**, commitar o que fiz até agora e este **README.md** para ficar como ***backup***.
+<<<<<<< HEAD
 - Detalhar o metodo `registrarCerveja()` na documentação.
 - Buscar entender porque `mvn spring-boot:run` dá erro; tentar entender os erros.
 ---
@@ -268,3 +273,5 @@ Aqui no final era para estar o codigo completo da aplicação para ser replicado
 - Commitar e entregar projeto. 
 
 **P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
+=======
+>>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
