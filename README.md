@@ -12,18 +12,8 @@
 
   - Selecionar: ***Maven Project***, **Java**; e adicionar as dependencias **Lombok**, **Spring Web**, **Spring Data JPA**, **Validation**, **H2 Database**, porém ainda irá faltar as dependência: **mapstruct**, **springfox swagger2**, **springfox swagger ui**.  
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  ![](/home/silassl/Documents/workspace/EstoqueDeCervejas/img/Screenshot01.png)
-=======
-  ![](./img/Screenshot from 2021-03-16 13-47-07.png)
->>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
-  
-=======
   ![](/img/Screenshot01.png)
 
-
->>>>>>> b2d6777635364a9c15c9889f0c2ca09c83877d60
   - Adicionar manualmente as dependências restantes no documento **pom.xml**.
 
   ```xml
@@ -278,13 +268,5 @@ Mas use o **Mockito** de forma responsavel, pois como foi dito anteriormente é 
 Aqui no final era para estar o codigo completo da aplicação para ser replicado usando as etapas, porém o diario de bordo está escrito de forma coesa, sendo possivel, ser feito esse **Gerenciador de Estoque de Cervejas** em outras linguagens.
 
 - Commitar e entregar projeto. 
-<<<<<<< HEAD
 - A solução para problema ao subir o projeto para a porta **localhost:8080** é que estava escrito em português (as variaveis, métodos). Ao re-escrever em inglês funcionou, parece que estava dando conflito com a classe `JpaRepository` que está tudo em inglês. Pois bem, fica como aprendizado, pois além de algumas empresas ter adotado a pratica de desenvolver os codigos em inglês, como disse o instrutor; as linguagens de programação também.
-
-###### **P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
->>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
-=======
-- Sobre os erros encontrados ao rodar o projeto com `mvn spring-boot:run`. Foi resolvido escrevendo os metodos `procurarPeloNome()`, `exclusaoPeloId()`, etc em inglês, pois parece que estava dando conflito entre os metodos escritos aqui em portugues com os escritos em Inglês pela a classe `JpaRepository`. Pois bem, fique como lição, escrever os projetos e codigos em inglês apartir de hoje, pois como o instrutor mesmo disse, além de ser uma prática adotada por algumas empresas, ajuda no aprendizado da linguagem em Inglês.
-
 **P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
->>>>>>> b2d6777635364a9c15c9889f0c2ca09c83877d60
