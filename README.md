@@ -12,11 +12,9 @@
 
   - Selecionar: ***Maven Project***, **Java**; e adicionar as dependencias **Lombok**, **Spring Web**, **Spring Data JPA**, **Validation**, **H2 Database**, porém ainda irá faltar as dependência: **mapstruct**, **springfox swagger2**, **springfox swagger ui**.  
 
-<<<<<<< HEAD
-  ![](/home/silassl/Documents/workspace/EstoqueDeCervejas/img/Screenshot01.png)
-=======
-  ![](./img/Screenshot from 2021-03-16 13-47-07.png)
->>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
+  ![](/img/Screenshot01.png)
+
+
   - Adicionar manualmente as dependências restantes no documento **pom.xml**.
 
   ```xml
@@ -247,7 +245,7 @@ Usando **TDD**, em outras palavras está sendo feitos testes unitarios durante o
 
 No **Postman**, é criado uma coleção que irá está conectada ao **localhos:8080/api/1v/[nome da api]**, nele é adicionado os protocolos antes citados, porém como pode ser visto na figura abaixo, com ***GET*** podemos listar e procuras cervejas pelo nome, com ***POST*** registrar as cervejas no banco de dados e por fim, ***DELETE*** que é a exclusao de uma determinada cerveja usando o **id**. Em seu console é possivel observar os codigos junto com as mensagens definidas. Esses codigos e mensagens foram escritos na classe `CervejaControllerDocs`.  
 
-![](/home/silassl/Documents/workspace/EstoqueDeCervejas/img/Screenshot02.png)
+![](/img/Screenshot02.png)
 
 Para os testes foi usado o **Mockito** do qual permite trabalhar com objetos; e testa-los. Diferente do **JUnit** que permite apenas variaveis. Ao usar o **Mockito** o programador ou ***tester*** tem que ter em mente esse algoritmo:
 
@@ -273,5 +271,3 @@ Aqui no final era para estar o codigo completo da aplicação para ser replicado
 - Commitar e entregar projeto. 
 
 **P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
-=======
->>>>>>> 8bab46c9d3cc5bf072ab89e0aa73b4095b8363ae
