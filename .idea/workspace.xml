@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32b513fb-a77d-437a-9366-ecc46bc8b924" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/resource/CervejaResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/resource/CervejaResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/resource/CervejaResourceDocs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/resource/CervejaResourceDocs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/resource/dto/QuantidadeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/resource/dto/QuantityDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/service/CervejaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/github/leitess/BeerStockApi/service/CervejaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/leitess/BeerStockApi/builder/CervejaDTOBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/leitess/BeerStockApi/builder/CervejaDTOBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/io/github/leitess/BeerStockApi/resource/BeerResourceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/io/github/leitess/BeerStockApi/resource/BeerResourceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/CervejaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/CervejaResource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/CervejaResourceDocs.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/CervejaResourceDocs.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/dto/QuantidadeDTO$QuantidadeDTOBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/dto/QuantidadeDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/service/CervejaService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/service/CervejaService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/io/github/leitess/BeerStockApi/resource/BeerResourceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/io/github/leitess/BeerStockApi/resource/BeerResourceTest.class" afterDir="false" />
-    </list>
+    <list default="true" id="32b513fb-a77d-437a-9366-ecc46bc8b924" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
