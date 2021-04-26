@@ -15,9 +15,9 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    private static final String BASE_PACKAGE = "lab.aulaDIO.EstoqueDeCervejas.controller";
-    private static final String API_TITLE = "Estoque de Cervejas";
-    private static final String API_DESCRIPTION = "REST API para gerenciamento de estoque de cervejas";
+    private static final String BASE_PACKAGE = "io.github.leitess.resource";
+    private static final String API_TITLE = "Beer Stock";
+    private static final String API_DESCRIPTION = "REST API to manage Beer Stock";
     private static final String CONTACT_NAME = "Silas Leite";
     private static final String CONTACT_GITHUB = "https://gtihub.com/LeiteSS";
     private static final String CONTACT_EMAIL = "leite.silassantos@gmail.com";

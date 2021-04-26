@@ -3,9 +3,9 @@ package io.github.leitess.BeerStockApi.service;
 import io.github.leitess.BeerStockApi.builder.CervejaDTOBuilder;
 import io.github.leitess.BeerStockApi.entity.Beer;
 import io.github.leitess.BeerStockApi.resource.dto.BeerDTO;
-import io.github.leitess.BeerStockApi.exception.EstoqueExcedeuException;
-import io.github.leitess.BeerStockApi.exception.JaExisteException;
-import io.github.leitess.BeerStockApi.exception.NaoFoiEncontradoException;
+import io.github.leitess.BeerStockApi.exception.StockExceededException;
+import io.github.leitess.BeerStockApi.exception.AlreadyExistException;
+import io.github.leitess.BeerStockApi.exception.NotFoundException;
 import io.github.leitess.BeerStockApi.mapper.CervejaMapper;
 import io.github.leitess.BeerStockApi.repository.CervejaRepository;
 import org.junit.jupiter.api.Assertions;
@@ -37,7 +37,7 @@ public class BeerServiceTest {
     private CervejaService cervejaService;
 
     @Test
-    void quandoUmaNovaCervejaForInformadaDeveraSerCriada() throws JaExisteException {
+    void quandoUmaNovaCervejaForInformadaDeveraSerCriada() throws AlreadyExistException {
         // given
         BeerDTO beerDTO = CervejaDTOBuilder.builder().build().toBeerDTO();
         Beer beerQueEsperaSerSalva = cervejaMapper.toModel(beerDTO);
@@ -62,11 +62,11 @@ public class BeerServiceTest {
 //            when
         when(cervejaRepository.findByName(beerDTO.getName())).thenReturn(Optional.of(beerDuplicada));
 //        then
-        assertThrows(JaExisteException.class,() -> cervejaService.create(beerDTO)) ;
+        assertThrows(AlreadyExistException.class,() -> cervejaService.create(beerDTO)) ;
     }
 
     @Test
-    void quandoDadoUmNomeValidoRetornarACerveja() throws NaoFoiEncontradoException {
+    void quandoDadoUmNomeValidoRetornarACerveja() throws NotFoundException {
 //            given
         BeerDTO beerDTOEsperada = CervejaDTOBuilder.builder().build().toBeerDTO();
         Beer beerEncontradaEsperada = cervejaMapper.toModel(beerDTOEsperada);
@@ -85,7 +85,7 @@ public class BeerServiceTest {
 //        when
         when(cervejaRepository.findByName(beerDTOEsperada.getName())).thenReturn(Optional.empty());
 //        then
-        assertThrows(NaoFoiEncontradoException.class,() -> cervejaService.findByName(beerDTOEsperada.getName()));
+        assertThrows(NotFoundException.class,() -> cervejaService.findByName(beerDTOEsperada.getName()));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class BeerServiceTest {
     }
 
     @Test
-    void quandoExclusaoForChamadoComUmIdValidoDeveExcluirACervejaDoSistema() throws NaoFoiEncontradoException {
+    void quandoExclusaoForChamadoComUmIdValidoDeveExcluirACervejaDoSistema() throws NotFoundException {
 //        given
         BeerDTO beerDTOEperadaQueSejaExcluida = CervejaDTOBuilder.builder().build().toBeerDTO();
         Beer expectedExcludedBeer = cervejaMapper.toModel(beerDTOEperadaQueSejaExcluida);
@@ -130,11 +130,11 @@ public class BeerServiceTest {
     void quandoForTentadoFazerExclusaoComIdInvalido() {
         when(cervejaRepository.findById(ID_INVALIDO)).thenReturn(Optional.empty());
 
-        assertThrows(NaoFoiEncontradoException.class,() -> cervejaService.deleteById(ID_INVALIDO));
+        assertThrows(NotFoundException.class,() -> cervejaService.deleteById(ID_INVALIDO));
     }
 
     @Test
-    void quandoForIncrementar() throws NaoFoiEncontradoException, EstoqueExcedeuException {
+    void quandoForIncrementar() throws NotFoundException, StockExceededException {
 //        given
         BeerDTO beerDTOEsperada = CervejaDTOBuilder.builder().build().toBeerDTO();
         Beer beerEsperada = cervejaMapper.toModel(beerDTOEsperada);
@@ -159,7 +159,7 @@ public class BeerServiceTest {
         when(cervejaRepository.findById(beerDTOEsperada.getId())).thenReturn(Optional.of(beerEsperada));
 //        then
         int quantidadeParaIncrementar = 80;
-        assertThrows(EstoqueExcedeuException.class, () -> cervejaService.increment(beerDTOEsperada.getId(), quantidadeParaIncrementar));
+        assertThrows(StockExceededException.class, () -> cervejaService.increment(beerDTOEsperada.getId(), quantidadeParaIncrementar));
     }
 
     @Test
@@ -169,11 +169,11 @@ public class BeerServiceTest {
 //            when
         when(cervejaRepository.findById(ID_INVALIDO)).thenReturn(Optional.empty());
 //        then
-        assertThrows(NaoFoiEncontradoException.class, () -> cervejaService.increment(ID_INVALIDO, quantidadeParaIncrementar));
+        assertThrows(NotFoundException.class, () -> cervejaService.increment(ID_INVALIDO, quantidadeParaIncrementar));
     }
 
     @Test
-    void quandoDecrementar() throws NaoFoiEncontradoException, EstoqueExcedeuException {
+    void quandoDecrementar() throws NotFoundException, StockExceededException {
 //        given
         BeerDTO beerDTOEsperada = CervejaDTOBuilder.builder().build().toBeerDTO();
         Beer beerEsperada = cervejaMapper.toModel(beerDTOEsperada);
@@ -190,7 +190,7 @@ public class BeerServiceTest {
     }
 
     @Test
-    void quandoOEstoqueEstiverVazioParaDecremento() throws NaoFoiEncontradoException, EstoqueExcedeuException {
+    void quandoOEstoqueEstiverVazioParaDecremento() throws NotFoundException, StockExceededException {
 //        given
         BeerDTO beerDTOEsperada = CervejaDTOBuilder.builder().build().toBeerDTO();
         Beer beerEsperada = cervejaMapper.toModel(beerDTOEsperada);
@@ -215,7 +215,7 @@ public class BeerServiceTest {
         when(cervejaRepository.findById(beerDTOEsperada.getId())).thenReturn(Optional.of(beerEsperada));
 //        then
         int quantidadeParaDecremento = 80;
-        assertThrows(EstoqueExcedeuException.class, () -> cervejaService.decrement(beerDTOEsperada.getId(), quantidadeParaDecremento));
+        assertThrows(StockExceededException.class, () -> cervejaService.decrement(beerDTOEsperada.getId(), quantidadeParaDecremento));
     }
 
     @Test
@@ -225,6 +225,6 @@ public class BeerServiceTest {
 //        when
         when(cervejaRepository.findById(ID_INVALIDO)).thenReturn(Optional.empty());
 //        then
-        assertThrows(NaoFoiEncontradoException.class, () -> cervejaService.decrement(ID_INVALIDO, quantidadeParaDecremento));
+        assertThrows(NotFoundException.class, () -> cervejaService.decrement(ID_INVALIDO, quantidadeParaDecremento));
     }
 }

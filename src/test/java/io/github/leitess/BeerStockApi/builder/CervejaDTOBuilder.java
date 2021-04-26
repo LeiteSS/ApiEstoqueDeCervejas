@@ -22,7 +22,7 @@ public class CervejaDTOBuilder {
     private int quantity = 10;
 
     @Builder.Default
-    private BeerType type = BeerType.LAGER;
+    private BeerType type = BeerType.of("Lager");
 
     public BeerDTO toBeerDTO() {
         return new BeerDTO(id,

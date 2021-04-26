@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuantidadeDTO {
+public class QuantityDTO {
 
     @NotNull
     @Max(100)
