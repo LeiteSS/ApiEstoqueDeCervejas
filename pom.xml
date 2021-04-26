@@ -8,11 +8,11 @@
 		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>lab.aulaDIO</groupId>
-	<artifactId>EstoqueDeCervejas</artifactId>
+	<groupId>io.github.leitess</groupId>
+	<artifactId>BeerStockApi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>EstoqueDeCervejas</name>
-	<description>API REST de Gerenciamento Estoques de Cerveja</description>
+	<name>BeerStockApi</name>
+	<description>API REST to manage beer stock</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
