@@ -1,7 +1,7 @@
 package io.github.leitess.BeerStockApi.mapper;
 
-import io.github.leitess.BeerStockApi.dto.CervejaDTO;
-import io.github.leitess.BeerStockApi.entity.Cerveja;
+import io.github.leitess.BeerStockApi.resource.dto.BeerDTO;
+import io.github.leitess.BeerStockApi.entity.Beer;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 public interface CervejaMapper {
     CervejaMapper INSTANCE = Mappers.getMapper(CervejaMapper.class);
 
-    Cerveja toModel(CervejaDTO cervejaDTO);
+    Beer toModel(BeerDTO beerDTO);
 
-    CervejaDTO toDTO(Cerveja cerveja);
+    BeerDTO toDTO(Beer beer);
 }

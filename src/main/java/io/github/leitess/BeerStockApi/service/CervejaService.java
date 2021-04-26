@@ -1,10 +1,11 @@
 package io.github.leitess.BeerStockApi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.leitess.BeerStockApi.entity.Beer;
 import io.github.leitess.BeerStockApi.exception.EstoqueExcedeuException;
 import io.github.leitess.BeerStockApi.exception.NaoFoiEncontradoException;
 import io.github.leitess.BeerStockApi.mapper.CervejaMapper;
-import io.github.leitess.BeerStockApi.dto.CervejaDTO;
-import io.github.leitess.BeerStockApi.entity.Cerveja;
+import io.github.leitess.BeerStockApi.resource.dto.BeerDTO;
 import io.github.leitess.BeerStockApi.exception.JaExisteException;
 import io.github.leitess.BeerStockApi.repository.CervejaRepository;
 import lombok.AllArgsConstructor;
@@ -20,21 +21,22 @@ import java.util.stream.Collectors;
 public class CervejaService {
     private final CervejaRepository cervejaRepository;
     private final CervejaMapper cervejaMapper = CervejaMapper.INSTANCE;
+    private ObjectMapper objectMapper;
 
-    public CervejaDTO create(CervejaDTO cervejaDTO) throws JaExisteException {
-        verificaSeEstaRegistrado(cervejaDTO.getName());
-        Cerveja cerveja = cervejaMapper.toModel(cervejaDTO);
-        Cerveja cervejaSalva = cervejaRepository.save(cerveja);
-        return cervejaMapper.toDTO(cervejaSalva);
+    public BeerDTO create(BeerDTO beerDTO) throws JaExisteException {
+        verificaSeEstaRegistrado(beerDTO.getName());
+        Beer beer = objectMapper.convertValue(beerDTO, Beer.class);
+        Beer beerSalva = cervejaRepository.save(beer);
+        return cervejaMapper.toDTO(beerSalva);
     }
 
-    public CervejaDTO findByName(String name) throws NaoFoiEncontradoException {
-        Cerveja cervejaEncontrada = cervejaRepository.findByName(name)
+    public BeerDTO findByName(String name) throws NaoFoiEncontradoException {
+        Beer beerEncontrada = cervejaRepository.findByName(name)
                 .orElseThrow(() -> new NaoFoiEncontradoException(name));
-        return cervejaMapper.toDTO(cervejaEncontrada);
+        return cervejaMapper.toDTO(beerEncontrada);
     }
 
-    public List<CervejaDTO> listAll() {
+    public List<BeerDTO> listAll() {
         return cervejaRepository.findAll()
                 .stream()
                 .map(cervejaMapper::toDTO)
@@ -46,36 +48,36 @@ public class CervejaService {
         cervejaRepository.deleteById(id);
     }
 
-    public CervejaDTO increment(Long id, int quantidadeParaIncrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
-        Cerveja cervejaParaIncrementar = verificaSeExiste(id);
-        int cervejaAposIncremento = quantidadeParaIncrementar + cervejaParaIncrementar.getQuantity();
-        if (cervejaAposIncremento <= cervejaParaIncrementar.getMax()) {
-            cervejaParaIncrementar.setQuantity(cervejaAposIncremento);
-            Cerveja cervejaIncrementada = cervejaRepository.save(cervejaParaIncrementar);
-            return cervejaMapper.toDTO(cervejaIncrementada);
+    public BeerDTO increment(Long id, int quantidadeParaIncrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
+        Beer beerParaIncrementar = verificaSeExiste(id);
+        int cervejaAposIncremento = quantidadeParaIncrementar + beerParaIncrementar.getQuantity();
+        if (cervejaAposIncremento <= beerParaIncrementar.getMax()) {
+            beerParaIncrementar.setQuantity(cervejaAposIncremento);
+            Beer beerIncrementada = cervejaRepository.save(beerParaIncrementar);
+            return cervejaMapper.toDTO(beerIncrementada);
         }
         throw new EstoqueExcedeuException(id, quantidadeParaIncrementar);
     }
 
-    public CervejaDTO decrement(Long id, int quantidadeParaDecrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
-        Cerveja cervejaParaDecrementar = verificaSeExiste(id);
-        int cervejaAposDecremento = cervejaParaDecrementar.getQuantity() - quantidadeParaDecrementar;
+    public BeerDTO decrement(Long id, int quantidadeParaDecrementar) throws NaoFoiEncontradoException, EstoqueExcedeuException {
+        Beer beerParaDecrementar = verificaSeExiste(id);
+        int cervejaAposDecremento = beerParaDecrementar.getQuantity() - quantidadeParaDecrementar;
         if (cervejaAposDecremento >= 0) {
-            cervejaParaDecrementar.setQuantity(cervejaAposDecremento);
-            Cerveja cervejaDecrementada = cervejaRepository.save(cervejaParaDecrementar);
-            return cervejaMapper.toDTO(cervejaDecrementada);
+            beerParaDecrementar.setQuantity(cervejaAposDecremento);
+            Beer beerDecrementada = cervejaRepository.save(beerParaDecrementar);
+            return cervejaMapper.toDTO(beerDecrementada);
         }
         throw new EstoqueExcedeuException(id, quantidadeParaDecrementar);
     }
 
     private void verificaSeEstaRegistrado(String name) throws JaExisteException {
-        Optional<Cerveja> optSavedBeer = cervejaRepository.findByName(name);
+        Optional<Beer> optSavedBeer = cervejaRepository.findByName(name);
         if (optSavedBeer.isPresent()) {
             throw new JaExisteException(name);
         }
     }
 
-    private Cerveja verificaSeExiste(Long id) throws NaoFoiEncontradoException {
+    private Beer verificaSeExiste(Long id) throws NaoFoiEncontradoException {
         return cervejaRepository.findById(id)
                 .orElseThrow(() -> new NaoFoiEncontradoException(id));
     }

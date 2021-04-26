@@ -1,7 +1,7 @@
 package io.github.leitess.BeerStockApi.builder;
 
-import io.github.leitess.BeerStockApi.dto.CervejaDTO;
-import io.github.leitess.BeerStockApi.enums.TipoDaCerveja;
+import io.github.leitess.BeerStockApi.resource.dto.BeerDTO;
+import io.github.leitess.BeerStockApi.entity.enums.BeerType;
 import lombok.Builder;
 
 @Builder
@@ -22,10 +22,10 @@ public class CervejaDTOBuilder {
     private int quantity = 10;
 
     @Builder.Default
-    private TipoDaCerveja type = TipoDaCerveja.LAGER;
+    private BeerType type = BeerType.LAGER;
 
-    public CervejaDTO toBeerDTO() {
-        return new CervejaDTO(id,
+    public BeerDTO toBeerDTO() {
+        return new BeerDTO(id,
                 name,
                 brand,
                 max,

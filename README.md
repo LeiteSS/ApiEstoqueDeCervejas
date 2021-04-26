@@ -128,7 +128,7 @@
 
 - Como está sendo usado a metodologia **TDD**, inicialmente adicionaremos o teste no método `registrarCerveja()`, caso dê errado será feito ele dar certo e só então o codigo será refatorado.
 
-- Dentro do pacote **builder**, criada dentro do pacote de testes, será criado a classe `CervejaDTOBuilder`, do qual receberá valores para ser testada o método `registrarCerveja()`. Com mais detalhes, será instanciado um ***Optional*** irá buscar no `CervejaRepository` a tal cerveja. Se essa cerveja já existir então é lançado a exceção. Se não, usamos o metodo `save()` da classe `JpaRepository` para poder retornar essa cerveja dentro do **DTO**.
+- Dentro do pacote **builder**, criada dentro do pacote de testes, será criado a classe `CervejaDTOBuilder`, do qual receberá valores para ser testada o método `registrarCerveja()`. Com mais detalhes, será instanciado um ***Optional*** irá buscar no `CervejaRepository` a tal beer. Se essa beer já existir então é lançado a exceção. Se não, usamos o metodo `save()` da classe `JpaRepository` para poder retornar essa beer dentro do **DTO**.
 
 - Dentro do pacote **controller** será criada a classe `CervejaControllerTest`. Os metodos do tipo `void` que receberão as anotações `@Test` serão: `quandoPOSTRegistrarUmaCerveja()` e `quandoPOSTRegistrarComUmCampoEmBranco()`, para testar o método `registrarCerveja()`.
 
@@ -136,7 +136,7 @@
 ---
 16 de março de 2020 - 16:24
 
-- Teste Realizados, somente um falhou: `quandoUmaNovaCervejaForInformadaDeveraSerCriada()`, talvez porque já deveria sido registrado a mesma cerveja na classe `CervejaControllerTest`.
+- Teste Realizados, somente um falhou: `quandoUmaNovaCervejaForInformadaDeveraSerCriada()`, talvez porque já deveria sido registrado a mesma beer na classe `CervejaControllerTest`.
 - Contudo, ao usar o comando `mvn spring-boot:run` a `build` falhou. Antes estava dando este mesmo problema (Este é o segundo projeto que estou desenvolvendo, dessa vez estou documentando um passo-a-passo), até mesmo usando o projeto do instrutor esta falhando a `build` do projeto. Contudo, pelo menos agora os teste rodam no **IDE**.  
 - Usando o terminal do **IntelliJ**, commitar o que fiz até agora e este **README.md** para ficar como ***backup***.
 <<<<<<< HEAD
@@ -152,25 +152,25 @@
 - Refatorar o método `registrarCerveja()`. Antes:
 
   ```java
-  public CervejaDTO registrarCerveja(CervejaDTO cervejaDTO) throws JaExisteException {
-          Optional<Cerveja> optSavedBeer = cervejaRepository.procurarPeloNome(cervejaDTO.getName());
+  public CervejaDTO registrarCerveja(CervejaDTO beerDTO) throws JaExisteException {
+          Optional<Cerveja> optSavedBeer = cervejaRepository.procurarPeloNome(beerDTO.getName());
           if (optSavedBeer.isPresent()) {
-              throw new JaExisteException(cervejaDTO.getName());
+              throw new JaExisteException(beerDTO.getName());
           }
-          Cerveja cerveja = cervejaMapper.toModel(cervejaDTO);
-          Cerveja cervejaSalva = cervejaRepository.save(cerveja);
-          return cervejaMapper.toDTO(cervejaSalva);
+          Cerveja beer = cervejaMapper.toModel(beerDTO);
+          Cerveja beerSalva = cervejaRepository.save(beer);
+          return cervejaMapper.toDTO(beerSalva);
       }
   ```
 
 - Agora:
 
   ```java
-  public CervejaDTO registrarCerveja(CervejaDTO cervejaDTO) throws JaExisteException {
-          verificaSeEstaRegistrado(cervejaDTO.getName());
-          Cerveja cerveja = cervejaMapper.toModel(cervejaDTO);
-          Cerveja cervejaSalva = cervejaRepository.save(cerveja);
-          return cervejaMapper.toDTO(cervejaSalva);
+  public CervejaDTO registrarCerveja(CervejaDTO beerDTO) throws JaExisteException {
+          verificaSeEstaRegistrado(beerDTO.getName());
+          Cerveja beer = cervejaMapper.toModel(beerDTO);
+          Cerveja beerSalva = cervejaRepository.save(beer);
+          return cervejaMapper.toDTO(beerSalva);
       }
   ```
 
@@ -242,7 +242,7 @@ Usando **TDD**, em outras palavras está sendo feitos testes unitarios durante o
 
 > REST é um termo definido por Roy Fielding em sua tese de mestrado no  qual ele descreve sobre um estilo de arquitetura de software sobre um  sistema operado em rede. REST é um acrônimo para "Transferência de  Estado Representacional" (Representational State Transfer).
 
-No **Postman**, é criado uma coleção que irá está conectada ao **localhos:8080/api/1v/[nome da api]**, nele é adicionado os protocolos antes citados, porém como pode ser visto na figura abaixo, com ***GET*** podemos listar e procuras cervejas pelo nome, com ***POST*** registrar as cervejas no banco de dados e por fim, ***DELETE*** que é a exclusao de uma determinada cerveja usando o **id**. Em seu console é possivel observar os codigos junto com as mensagens definidas. Esses codigos e mensagens foram escritos na classe `CervejaControllerDocs`.  
+No **Postman**, é criado uma coleção que irá está conectada ao **localhos:8080/api/1v/[nome da api]**, nele é adicionado os protocolos antes citados, porém como pode ser visto na figura abaixo, com ***GET*** podemos listar e procuras cervejas pelo nome, com ***POST*** registrar as cervejas no banco de dados e por fim, ***DELETE*** que é a exclusao de uma determinada beer usando o **id**. Em seu console é possivel observar os codigos junto com as mensagens definidas. Esses codigos e mensagens foram escritos na classe `CervejaControllerDocs`.  
 
 ![](/img/Screenshot02.png)
 
