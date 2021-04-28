@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="32b513fb-a77d-437a-9366-ecc46bc8b924" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/CervejaResource.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/io/github/leitess/BeerStockApi/resource/CervejaResource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/io/github/leitess/BeerStockApi/mapper/CervejaMapperImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-sources/annotations/io/github/leitess/BeerStockApi/mapper/CervejaMapperImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

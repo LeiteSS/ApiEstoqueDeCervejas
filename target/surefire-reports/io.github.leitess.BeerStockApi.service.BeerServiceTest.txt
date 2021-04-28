@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: io.github.leitess.BeerStockApi.service.BeerServiceTest
+-------------------------------------------------------------------------------
+Tests run: 15, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.096 s <<< FAILURE! - in io.github.leitess.BeerStockApi.service.BeerServiceTest
+quandoUmaNovaCervejaForInformadaDeveraSerCriada  Time elapsed: 0.013 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.fasterxml.jackson.databind.ObjectMapper.convertValue(Object, java.lang.Class)" because "this.objectMapper" is null
+	at io.github.leitess.BeerStockApi.service.BeerServiceTest.quandoUmaNovaCervejaForInformadaDeveraSerCriada(BeerServiceTest.java:50)
+

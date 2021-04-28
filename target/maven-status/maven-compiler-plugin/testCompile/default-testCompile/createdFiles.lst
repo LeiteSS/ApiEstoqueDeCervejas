@@ -1,0 +1,6 @@
+io/github/leitess/BeerStockApi/builder/CervejaDTOBuilder$CervejaDTOBuilderBuilder.class
+io/github/leitess/BeerStockApi/builder/CervejaDTOBuilder.class
+io/github/leitess/BeerStockApi/utils/JsonConvertionUtils.class
+io/github/leitess/BeerStockApi/resource/BeerResourceTest.class
+io/github/leitess/BeerStockApi/service/BeerServiceTest.class
+io/github/leitess/BeerStockApi/BeerStockApiApplicationTests.class

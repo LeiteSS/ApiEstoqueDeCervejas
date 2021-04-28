@@ -1,0 +1,80 @@
+-------------------------------------------------------------------------------
+Test set: io.github.leitess.BeerStockApi.resource.BeerResourceTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 10, Errors: 4, Skipped: 0, Time elapsed: 3.531 s <<< FAILURE! - in io.github.leitess.BeerStockApi.resource.BeerResourceTest
+quandoGETForChamadoParaListarMasEstiverVazio  Time elapsed: 2.498 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoGETForChamadoParaListarMasEstiverVazio(BeerResourceTest.java:130)
+
+quandoOIdForValidoParaExclusao  Time elapsed: 0.065 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<204> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoOIdForValidoParaExclusao(BeerResourceTest.java:140)
+
+quandoPATCHParaIncrementarForChamadoRetornarOKStatus  Time elapsed: 0.12 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPATCHParaIncrementarForChamadoRetornarOKStatus(BeerResourceTest.java:169)
+
+quandoPATCHForChamadoParaDecrementarCervejaComIDInvalido  Time elapsed: 0.117 s  <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPATCHForChamadoParaDecrementarCervejaComIDInvalido(BeerResourceTest.java:254)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+
+quandoPATCHForChamadoParaDecrementoMenorQueZero  Time elapsed: 0.067 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPATCHForChamadoParaDecrementoMenorQueZero(BeerResourceTest.java:244)
+
+quandoPOSTRegistrarComUmCampoEmBranco  Time elapsed: 0.053 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPOSTRegistrarComUmCampoEmBranco(BeerResourceTest.java:79)
+
+quandoPATCHForChamadoParaDecremento  Time elapsed: 0.074 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPATCHForChamadoParaDecremento(BeerResourceTest.java:223)
+
+quandoGETComOnameValidoRetornOKStatus  Time elapsed: 0.115 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoGETComOnameValidoRetornOKStatus(BeerResourceTest.java:91)
+
+quandoPATCHForChamadoParaIncrementarComValorMaiorQueOMaximoPermitido  Time elapsed: 0.086 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPATCHForChamadoParaIncrementarComValorMaiorQueOMaximoPermitido(BeerResourceTest.java:191)
+
+quandoGETForChamadoParaListar  Time elapsed: 0.056 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoGETForChamadoParaListar(BeerResourceTest.java:118)
+
+quandoGETForChamadoComnameNaoCadastrado  Time elapsed: 0.046 s  <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoGETForChamadoComnameNaoCadastrado(BeerResourceTest.java:102)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+
+quandoOIdForInvalidoParaExclusao  Time elapsed: 0.051 s  <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoOIdForInvalidoParaExclusao(BeerResourceTest.java:148)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+
+quandoPOSTRegistrarUmaCerveja  Time elapsed: 0.103 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<201> but was:<404>
+	at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPOSTRegistrarUmaCerveja(BeerResourceTest.java:65)
+
+quandoPATCHForChamadoParaIncrementarComOIDInvalido  Time elapsed: 0.064 s  <<< ERROR!
+org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+
+Unnecessary stubbings detected.
+Clean & maintainable test code requires zero unnecessary code.
+Following stubbings are unnecessary (click to navigate to relevant line of code):
+  1. -> at io.github.leitess.BeerStockApi.resource.BeerResourceTest.quandoPATCHForChamadoParaIncrementarComOIDInvalido(BeerResourceTest.java:201)
+Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+

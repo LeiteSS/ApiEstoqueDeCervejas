@@ -1,0 +1,5 @@
+/home/ssl/workspace/beer-stock_api/src/test/java/io/github/leitess/BeerStockApi/service/BeerServiceTest.java
+/home/ssl/workspace/beer-stock_api/src/test/java/io/github/leitess/BeerStockApi/builder/CervejaDTOBuilder.java
+/home/ssl/workspace/beer-stock_api/src/test/java/io/github/leitess/BeerStockApi/BeerStockApiApplicationTests.java
+/home/ssl/workspace/beer-stock_api/src/test/java/io/github/leitess/BeerStockApi/resource/BeerResourceTest.java
+/home/ssl/workspace/beer-stock_api/src/test/java/io/github/leitess/BeerStockApi/utils/JsonConvertionUtils.java

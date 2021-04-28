@@ -25,7 +25,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://beer-stock.netlify.app")
 @RequestMapping("/api/v1")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CervejaResource implements CervejaResourceDocs {
