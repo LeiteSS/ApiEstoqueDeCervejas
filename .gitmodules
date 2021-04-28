@@ -1,0 +1,3 @@
+[submodule "beer-stock_front-end"]
+	path = beer-stock_front-end
+	url = https://github.com/LeiteSS/beer-stock_front-end.git
