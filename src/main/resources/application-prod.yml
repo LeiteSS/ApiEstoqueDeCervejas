@@ -1,5 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:mysql://${DATABASE_SERVER_NAME:localhost}:3306/beer_stock
-    username: ${DATABASE_USER_NAME:java}
-    password: ${DATABASE_USER_PASSWORD:1234}

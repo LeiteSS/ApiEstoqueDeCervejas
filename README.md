@@ -1,272 +1,55 @@
-# Diario de Bordo: API REST de Gerenciamento Estoques de Cerveja
+# Beer Stock
 
-**Objetivos:** Desenvolver uma **API** usando a metodologia ***Test Driven Development*** - **TDD**. Codificar esta **API** usando a linguagem de programação **Java** na versão 11 e ***Maven***.  Documentar todos os procedimentos. 
+[![License: FDL 1.3](https://img.shields.io/badge/License-FDL%20v1.3-blue.svg)](https://www.gnu.org/licenses/fdl-1.3)
 
-**Ferramentas Usadas:** **IntelliJ**, **Typora**, **Mozilla Firefox**, **Git**.
+A company wants a application to manager its beer stock. Where it is possible to create, update, delete and view all beers registered, otherwise must be possible to decrement and increment the stock until the maximum quantity. 
 
----
+## Features
 
-16 de março de 2020 - 14:00 
+- Create a beer.
+- Update a beer using the Id.
+- Delete a beer using the Id.
+- Get all beer created. 
+- Increment the beer's quantity until the maximum quantity.
+- Decrement the beer's quantity.
 
-- Gerar a estrutura do projeto ***Spring Boot*** usando site [Spring Initializr](https://start.spring.io/).
+## Usage
 
-  - Selecionar: ***Maven Project***, **Java**; e adicionar as dependencias **Lombok**, **Spring Web**, **Spring Data JPA**, **Validation**, **H2 Database**, porém ainda irá faltar as dependência: **mapstruct**, **springfox swagger2**, **springfox swagger ui**.  
+Firstly, clone this repository:
 
-  ![](/img/Screenshot01.png)
-
-  - Adicionar manualmente as dependências restantes no documento **pom.xml**.
-
-  ```xml
-  		<dependency>
-  			<groupId>org.mapstruct</groupId>
-  			<artifactId>mapstruct</artifactId>
-  			<version>1.3.1.Final</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>io.springfox</groupId>
-  			<artifactId>springfox-swagger2</artifactId>
-  			<version>2.9.2</version>
-  		</dependency>
-  		<dependency>
-  			<groupId>io.springfox</groupId>
-  			<artifactId>springfox-swagger-ui</artifactId>
-  			<version>2.9.2</version>
-  		</dependency>
-  ```
-  - Adicionar também o seguinte trecho no documento **pom.xml**.
-
-  ```xml
-  			<plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-compiler-plugin</artifactId>
-                  <configuration>
-                      <source>${java.version}</source>
-                      <target>${java.version}</target>
-                      <annotationProcessorPaths>
-                          <path>
-                              <groupId>org.projectlombok</groupId>
-                              <artifactId>lombok</artifactId>
-                              <version>${lombok.version}</version>
-                          </path>
-                          <path>
-                              <groupId>org.mapstruct</groupId>
-                              <artifactId>mapstruct-processor</artifactId>
-                              <version>1.3.1.Final</version>
-                          </path>
-                      </annotationProcessorPaths>
-                  </configuration>
-              </plugin>
-  ```
-
----
-
-  16 de março de 2020 - 14:19
-
-- Dentro do pacote **EstoqueDeCervejas** que está no pacote **main** criar os seguintes pacotes: **config**, **controller**,**dto**, **entity**, **enums**, **exception**, **mapper**, **repository** e **service**. 
-
-- Dentro do pacote **EstoqueDeCervejas**, agora no pacote **test**, criar os seguintes pacotes: **builder**, **controller** e **service**.
-
-  ---
-
-  16 de março de 2020 - 14:28 
-
-- Dentro pacote **resources**, que está no pacote **main** será escrito as seguintes linhas:
-
-  ```properties
-  spring.datasource.url=jdbc:h2:mem:EstoqueDeCervejas;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-  spring.datasource.driverClassName=org.h2.Driver
-  spring.datasource.username=sa
-  spring.datasource.password=
-  spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-  ```
-
-  ---
-
-  16 de março de 2020 - 14:33
-  
-- Dentro pacote antes criado chamado **config** será escrito um métodos para construir a **API** com as seguintes caracteristicas: `BASE_PACKAGE`, `API_TITLE`, `API_DESCRIPTION`, `CONTACT_NAME`, `CONTACT_GITHUB` e `CONTACT_EMAIL` nesta classe terá também um método que usa a classe `Docket` como tipo. **Ainda não sei como esse método trabalha e conheço o Docket apenas de "vista"**. 
-
-  ---
-
-  16 de março de 2020 - 14:45
-
-- Dentro do pacote **entity** será criado uma classe `Cerveja`  com os atributo: **id**, **nome**, **marca**, **max**, **quantidade** e um `enum` que conterá os tipos de cervejas. Esta é a entidade e espelho do banco de dados.
-
-- A anotação `@Data` serve para gerar os `getters ` e `setter` automaticamente.
-
-- Dentro do pacote **enum** criar a classe `TipoDaCerveja`, que como já foi dito é um `enum` com os seguintes tipos: **LAGER**, **MALZBIER**, **WITBIER**, **WEISS**, **ALE**, **IPA** e **STOUT**. Cada tipo segue com a sua descrição, que será a `String` que será salva no Banco de Dados.
-
-  ---
-  
-  16 de março de 2020 - 15:05
-  
-- Dentro do pacote **dto** será criado a classe `CervejaDTO`, onde possuirá os mesmo atributos da entidade `Cerveja`.
-
-  > ***Data Transfer Object*** (DTO) ou simplesmente ***Transfer Object\*** é um padrão de projetos bastante usado em Java para o transporte de  dados entre diferentes componentes de um sistema, diferentes instâncias  ou processos de um sistema distribuído ou diferentes sistemas via  serialização.
-  >
-  > A ideia consiste basicamente em agrupar um conjunto de atributos numa classe simples de forma a otimizar a comunicação. fonte: [***Stackoverflow***](https://pt.stackoverflow.com/questions/31362/o-que-%C3%A9-um-dto)
-
----
-
-16 de março de 2020 - 15:11
-
-- Dentro do pacote **repository** será criado a classe `CervejaRepository`, no qual estende a classe `JpaRepository`, do qual irá permitir que encontramos as cervejas pelos seus nomes.
-
----
-16 de março de 2020 - 15:13
-
-- Dentro do pacote **service** iremos criar a classe `CervejaService`, no qual possuirá os métodos de registro, procura, exclusão, etc. 
-
-- Dentro do pacote **exception** criar a classe com a exceção que será lançada chamada `JaExisteException`.
-
-- Dentro do pacote **controller** será criado duas classes: `CervejaController` e `CervejaControllerDocs`,  que será uma interface. Nessa classes ***controllers*** haverá os mesmo metodos da classe ***service***.
-
-- Na `RestController`, como é chamada a classe ***controller***, é uma boa prática mapea-la da seguinte forma: **"/api/v1/[nome da api]"**. 
-
----
-16 de março de 2020 - 15:46
-
-- Como está sendo usado a metodologia **TDD**, inicialmente adicionaremos o teste no método `registrarCerveja()`, caso dê errado será feito ele dar certo e só então o codigo será refatorado.
-
-- Dentro do pacote **builder**, criada dentro do pacote de testes, será criado a classe `CervejaDTOBuilder`, do qual receberá valores para ser testada o método `registrarCerveja()`. Com mais detalhes, será instanciado um ***Optional*** irá buscar no `CervejaRepository` a tal beer. Se essa beer já existir então é lançado a exceção. Se não, usamos o metodo `save()` da classe `JpaRepository` para poder retornar essa beer dentro do **DTO**.
-
-- Dentro do pacote **controller** será criada a classe `CervejaControllerTest`. Os metodos do tipo `void` que receberão as anotações `@Test` serão: `quandoPOSTRegistrarUmaCerveja()` e `quandoPOSTRegistrarComUmCampoEmBranco()`, para testar o método `registrarCerveja()`.
-
-- Dentro do pacote **service** será criada a classe `CervejaServiceTest`.  Os metodos do tipo `void` que receberão as anotações `@Test` serão: `quandoUmaNovaCervejaForInformadaDeveraSerCriada()` e `quandoACervejaInformadaJaExistirLancarUmaExcecao()` para testar o método `registrarCerveja()`.
----
-16 de março de 2020 - 16:24
-
-- Teste Realizados, somente um falhou: `quandoUmaNovaCervejaForInformadaDeveraSerCriada()`, talvez porque já deveria sido registrado a mesma beer na classe `CervejaControllerTest`.
-- Contudo, ao usar o comando `mvn spring-boot:run` a `build` falhou. Antes estava dando este mesmo problema (Este é o segundo projeto que estou desenvolvendo, dessa vez estou documentando um passo-a-passo), até mesmo usando o projeto do instrutor esta falhando a `build` do projeto. Contudo, pelo menos agora os teste rodam no **IDE**.  
-- Usando o terminal do **IntelliJ**, commitar o que fiz até agora e este **README.md** para ficar como ***backup***.
-<<<<<<< HEAD
-- Detalhar o metodo `registrarCerveja()` na documentação.
-- Buscar entender porque `mvn spring-boot:run` dá erro; tentar entender os erros. **Solução Encontrada!**
----
-16 de março de 2020 - 17:00
-
-- O erro está na ao mapear usando a classe `CervejaMapper`. Porém não foi encontrado solução para isso ainda.
-
-- Escrever o metodo `verificaSeEstaRegistrado()` na classe `CervejaService`. Usando um ***Optional*** será visto se o nome está presente na coleção.
-
-- Refatorar o método `registrarCerveja()`. Antes:
-
-  ```java
-  public CervejaDTO registrarCerveja(CervejaDTO beerDTO) throws JaExisteException {
-          Optional<Cerveja> optSavedBeer = cervejaRepository.procurarPeloNome(beerDTO.getName());
-          if (optSavedBeer.isPresent()) {
-              throw new JaExisteException(beerDTO.getName());
-          }
-          Cerveja beer = cervejaMapper.toModel(beerDTO);
-          Cerveja beerSalva = cervejaRepository.save(beer);
-          return cervejaMapper.toDTO(beerSalva);
-      }
-  ```
-
-- Agora:
-
-  ```java
-  public CervejaDTO registrarCerveja(CervejaDTO beerDTO) throws JaExisteException {
-          verificaSeEstaRegistrado(beerDTO.getName());
-          Cerveja beer = cervejaMapper.toModel(beerDTO);
-          Cerveja beerSalva = cervejaRepository.save(beer);
-          return cervejaMapper.toDTO(beerSalva);
-      }
-  ```
-
-- Agora a verificação é feita em outro método, pois este é um algoritmo que pode se repetir.
-
-- Escrever o método `procurarPeloNome()`, `listarCervejas()`  na classe `CervejaService`.
-
-- Escrever o método `procurarPeloNome()`, `listarCervejas()`, na classe `CervejaControllerDocs`.
-
-- Sobrescrever os métodos `procurarPeloNome()`, `listarCervejas()` na classe `CervejaController`.
-
----
-16 de março de 2020 - 17:30
-
-- Testar as novas funcionalidades no pacote de testes. Escrever na classe `CervejaControllerTest` os metodos `void` para testes: `quandoGETComONomeValidoRetornOKStatus()` e `quandoGETForChamadoComNomeNaoCadastrado()`, ambos para testar o metodo `procurarPeloNome()`. 
-- Escrever ainda na classe `CervejaControllerTest` os métodos `void` para testes: `quandoGETForChamadoParaListar()` e `quandoGETForChamadoParaListarMasEstiverVazio()` para testar o método `listarCervejas()`.
-- Escrever na classe `CervejaServiceTest` os métodos `void` para testes: `quandoDadoUmNomeValidoRetornarACerveja()` e `lancarUmaExcecaoQuandoONomeNaoForEncontrado()` ambos são para testar o método `procurarPeloNome()`.
--  Escrever na classe `CervejaServiceTest` os métodos `void` para testes: `quandoChamarAListaDeCervejas()` e `quandoAListaChamadaEstiverVazia()` para testar o método `listarCervejas()`.
-
-16 de março de 2020 - 18:00
-
-- Escrever os métodos `exclusaoPeloId()` e `verificarSeExiste()` na classe `CervejaService`.
-- Escrever o método `exclusaoPeloId()`  na classe `CervejaControllerDocs`.
-- Sobreescrever o método `exclusaoPeloId()` na classe `CervejaController`
-
----
-
-16 de março de 2020 - 18:10
-
-- Escrever ainda na classe `CervejaControllerTest` os métodos `void` para testes: `quandoOIdForValidoParaExclusao() ` e `quandoOIdForInvalidoParaExclusao()` para testar o método `exclusaoPeloId()`.
-
-- Escrever na classe `CervejaServiceTest` os métodos `void` para testes: `quandoExclusaoForChamadoComUmIdValidoDeveExcluirACervejaDoSistema()` e `quandoForTentadoFazerExclusaoComIdInvalido()` ambos são para testar o método `procurarPeloNome()`.
-
-- Criar dentro do pacote de teste, o pacote **utils** e fazer a classe `JsonConvertionsUtils`, onde será posto o método `asJsonString` que estava dentro do `CervejaDTOBuilder`.
-
----
-
-  17 de março de 2020 - 08:00
-
-- Escrever a classe  `EstoqueExcedeuException`  dentro do pacote **exception**, que lança uma exceção para quando o estoque estiver cheio. 
-- Escrever o método `incrementoDoEstoque()` na classe `CervejaService`. 
-- Dentro do pacote **dto**, criar a classe `QuantidadeDTO`  com apenas o atributo `quantidade`.
-- Na classe `CervejaControllerDocs` escrever a operação `incrementarDoEstoque()`.
-- Sobreescrever esta operação na classe `CervejaController`. 
----
-17 de março de 2020 - 08:30
-
-- Testar na classe `CervejaControllerTest`  o método `incrementoDoEstoque()` usando, para isso, os métodos: `quandoPATCHParaIncrementarForChamadoRetornarOKStatus()`, `quandoPATCHForChamadoParaIncrementarComValorMaiorQueOMaximoPermitido()` e `quandoPATCHForChamadoParaIncrementarComOIDInvalido()`.
-
-- Testar na classe `CervejaServiceTest`  o método `incrementoDoEstoque()` usando, para isso, os métodos: `quandoForIncrementar()`, `quandoIncrementoForMaiorQueOMaximoPermitido()` e `quandoOIdDadoParaIncrementoForInvalido()`.
-
----
-
-7 de março de 2020 - 09:00
-
-- Escrever o método `decrementoDoEstoque()` na classe `CervejaService`. 
-- Escrever o método `decrementoDoEstoque()` na classe `CervejaController`. 
----
-7 de março de 2020 - 09:20
-
-- Testar na classe `CervejaControllerTest`  o método `decrementoDoEstoque()` usando, para isso, os métodos: `quandoPATCHForChamadoParaDecremento()`, `quandoPATCHForChamadoParaDecrementoMenorQueZero()` e `quandoPATCHForChamadoParaDecrementarCervejaComIDInvalido()`.
-
-- Testar na classe `CervejaServiceTest`  o método `incrementoDoEstoque()` usando, para isso, os métodos: `quandoDecrementar()`, `quandoOEstoqueEstiverVazioParaDecremento()` e `quandoDecrementoForMenorQueZero()`, `quandoOIDDadoParaDecrementoEstiverInvalido()`.
-
----
-7 de março de 2020 - 09:35
-
-Usando **TDD**, em outras palavras está sendo feitos testes unitarios durante o processo de cada funcionalidade; e somentes detalhes que o programador não esteve atento durante esse processo irão para os ***testers***, obviamente, ***testers*** possuem os seus roteiros, conhecem melhor os procedimentos. Porém, o programador realizando testes unitarios, permite saber se tudo está ocorrendo de forma esperada ao invez de ser feito as cegas. Usando a arquitetura ***REST*** está sendo aplicado três dos oitos metodos disponíveis pelo protocolo **HTTP**: ***PUT***, ***GET*** e ***DELETE***. Usando o programa **Postman** é possivel ver esse processo, inclusive os codigos da `@ApiResponse`  sendo imprimidos no console (200, 400, 201 e 404), do qual representam ***ok status***, ***Not Found Status*** e ***Bad Request Status***. 
-
-> REST é um termo definido por Roy Fielding em sua tese de mestrado no  qual ele descreve sobre um estilo de arquitetura de software sobre um  sistema operado em rede. REST é um acrônimo para "Transferência de  Estado Representacional" (Representational State Transfer).
-
-No **Postman**, é criado uma coleção que irá está conectada ao **localhos:8080/api/1v/[nome da api]**, nele é adicionado os protocolos antes citados, porém como pode ser visto na figura abaixo, com ***GET*** podemos listar e procuras cervejas pelo nome, com ***POST*** registrar as cervejas no banco de dados e por fim, ***DELETE*** que é a exclusao de uma determinada beer usando o **id**. Em seu console é possivel observar os codigos junto com as mensagens definidas. Esses codigos e mensagens foram escritos na classe `CervejaControllerDocs`.  
-
-![](/img/Screenshot02.png)
-
-Para os testes foi usado o **Mockito** do qual permite trabalhar com objetos; e testa-los. Diferente do **JUnit** que permite apenas variaveis. Ao usar o **Mockito** o programador ou ***tester*** tem que ter em mente esse algoritmo:
-
-```
-// given
-Object objeto = new Objeto();
-Object objetoEsperado = new Objeto();
-
-// when
-
-when(fazer_algo_com_o_objeto).thenReturn(colecação_de_objetos)
-
-// then
-assertThat(objeto, objetoEsperado)
+```bash
+git clone https://github.com/LeiteSS/ApiEstoqueDeCervejas.git
 ```
 
-Sendo ***given*** a instanciação do objeto, ***when*** quando fazer (ou tambem o que fazer com o objeto dado, por exemplo: pegar o id, nome, etc) e por fim, esse tambem entra como "o que fazer com o objeto", pois no ***then** colocamos como queremos que o objeto seja testado (queremos compara-lo a outro objeto, queremos verificar algo no objeto, forçar o resultado passar mesmo quando estar errado; com o **Mockito** é possivel).
+With everything cloned, navigate to the folder with the projects `cd ApiEstoqueDeCervejas`. Inside, you can run the **API** using the command `./mvnw spring-boot:run`. After the installation of the dependencies and build, the application must start in http://localhost:8080. If you have **Postman** use the [api's collection](https://documenter.getpostman.com/view/14979428/TzJydFvx). However, navigate to the **front-end** using `cd front-end` and run `ng serve` for a dev server. In the browser, navigate to http://localhost:4200/ and the front-end it is ready to communicate with the back-end. 
 
-Mas use o **Mockito** de forma responsavel, pois como foi dito anteriormente é possivel forçar o algoritmo passar nos testes mesmo quando está errado o resultado (por exempo: 2 + 2 = 4, no **Mockito** podemos fazer com que 2 + 2 seja igual a 5). Por isso, é recomendado usar o **Mockito** quando devemos testar a aplicação usando determinado banco de dados, mas não temos acesso a esse banco de dados ainda.
+The back-end has some tests, to run them use:
 
-Aqui no final era para estar o codigo completo da aplicação para ser replicado usando as etapas, porém o diario de bordo está escrito de forma coesa, sendo possivel, ser feito esse **Gerenciador de Estoque de Cervejas** em outras linguagens.
+```bash
+# BeerControllerTest
+./mvnw -Dtest=BeerControllerTest test
 
-- Commitar e entregar projeto. 
-- A solução para problema ao subir o projeto para a porta **localhost:8080** é que estava escrito em português (as variaveis, métodos). Ao re-escrever em inglês funcionou, parece que estava dando conflito com a classe `JpaRepository` que está tudo em inglês. Pois bem, fica como aprendizado, pois além de algumas empresas ter adotado a pratica de desenvolver os codigos em inglês, como disse o instrutor; as linguagens de programação também.
-**P.S.:** futuramente, escrever os algoritmos em **pseudo-codigo**. 
+# BeerServiceTest
+./mvnw -Dtest=BeerControllerTest test
+```
+
+***The commands are for operational systems using Linux, but in Windows the commands for Maven are the same*
+
+### Attribution
+
+This projects uses [**Maven**](https://maven.apache.org/what-is-maven.html), [**Lombok**](https://projectlombok.org/), [**Mapstruct**](https://mapstruct.org/),  [**H2 Database**](https://www.h2database.com/html/main.html), **Spring Boot Data JPA**, **Spring Boot Validation**, **Spring Boot Web**, [**Swagger 2**](https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api), [**Jackson JSON**](https://github.com/FasterXML/jackson), [**Node Js**](https://nodejs.org/en/docs/), **Angular** e [**Angular Material**](https://material.angular.io/).  
+
+## Credits
+
+PELEIAS, Rodrigo. "[**Digital Innovation: Expert class - Desenvolvimento de testes unitários para  validar uma API REST de gerenciamento de estoques de cerveja**](https://github.com/rpeleias/beer_api_digital_innovation_one)" **Digital Innovation One**, 2020.
+
+SANTOS, Kamilah. "[**Live Coding - Crie seu gerenciador de salas de reuniões com Java e Angular**](https://github.com/Kamilahsantos/Client-Angular-Live-Coding-Dio)". **Digital Innovation One**, 2020.
+
+BARBOZA, Glauber. "[**Como Jackson e Binder são utilizados / Criando Aplicações Web Com Spring Web MVC**](https://github.com/glauber-barboza/digitalinnovation-jackson)". **Digital Innovation One**, 2019.
+
+## License
+
+Copyright (C)  2021  Silas Leite.
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled "GNU Free Documentation License".
+
+
